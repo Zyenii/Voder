@@ -91,10 +91,10 @@
                         <td><select id="yAttrDropdown" class="specificationDropdown"></select></td>
                         <td><select id="yTransformDropdown" class="specificationDropdown">
                             <option value=""></option>
-                            <option value="COUNT">COUNT</option>
-                            <option value="AVG">AVG</option>
-                            <option value="SUM">SUM</option>
-                            <option value="BIN">BIN</option>
+                            <option value="COUNT" data-ana="yTransformDropdown:COUNT">COUNT</option>
+                            <option value="AVG" data-ana="yTransformDropdown:AVG">AVG</option>
+                            <option value="SUM" data-ana="yTransformDropdown:SUM">SUM</option>
+                            <option value="BIN" data-ana="yTransformDropdown:BIN">BIN</option>
                         </select></td>
                     </tr>
                     <!--<tr>-->
@@ -115,31 +115,31 @@
                         <td><select id="sizeAttrDropdown" class="specificationDropdown"></select></td>
                         <td><select id="sizeTransformDropdown" class="specificationDropdown">
                             <option value=""></option>
-                            <option value="COUNT">COUNT</option>
-                            <option value="AVG">AVG</option>
-                            <option value="SUM">SUM</option>
-                            <option value="BIN">BIN</option>
+                            <option value="COUNT" data-ana="sizeAttrDropdown:COUNT">COUNT</option>
+                            <option value="AVG" data-ana="sizeAttrDropdown:AVG">AVG</option>
+                            <option value="SUM" data-ana="sizeAttrDropdown:SUM">SUM</option>
+                            <option value="BIN" data-ana="sizeAttrDropdown:BIN">BIN</option>
                         </select></td>
                     </tr>
                     <tr>
                         <td>Mark:</td>
                         <td><select id="markTypeDropdown" data-ana="markTypeDropdown" class="specificationDropdown">
                             <option value=""></option>
-                            <option value="arc">Arc</option>
-                            <option value="bar">Bar</option>
-                            <option value="point">Point</option>
-                            <option value="tick">Tick</option>
-                            <option value="box">Box</option>
+                            <option value="arc" data-ana="markTypeDropdown:arc">Arc</option>
+                            <option value="bar" data-ana="markTypeDropdown:bar">Bar</option>
+                            <option value="point" data-ana="markTypeDropdown:point">Point</option>
+                            <option value="tick" data-ana="markTypeDropdown:tick">Tick</option>
+                            <option value="box" data-ana="markTypeDropdown:box">Box</option>
                         </select></td>
                     </tr>
                 </table>
-                <button id="showMeButton" data-ana="Possible clicked" class="btn btn-default" style="margin-top: 5%;">Show Possible Visualizations</button>
+                <button id="showMeButton" data-ana="showMeButton clicked" class="btn btn-default" style="margin-top: 5%;">Show Possible Visualizations</button>
                 <hr>
                 <span style="color: black;">Data fact tier:</span>
                 <select id="dataFactTierSelector">
-                    <option value="1" data-ana="option1 clicked">1</option>
-                    <option value="2" data-ana="option2 clicked">2</option>
-                    <option value="3" data-ana="option3 clicked">3</option>
+                    <option value="1" data-ana="datafact tier 1">1</option>
+                    <option value="2" data-ana="datafact tier 2">2</option>
+                    <option value="3" data-ana="datafact tier 3">3</option>
                 </select>
             </div>
         </div>
@@ -152,7 +152,7 @@
                         <div id="acceptedDataFactsDiv" style="width: 100%;height: 90%;overflow: auto;"></div>
                         <div id="manualFactEntryDiv" style="width: 100%;height: 7%;overflow: auto;margin:1%;">
                             <input type="text" style="width: 85%;" id="manualFactInputBox">
-                            <button class="btn btn-default" id="manualFactSubmitButton"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-default" id="manualFactSubmitButton" data-ana="manualFactSubmit"><i class="fa fa-plus"></i></button>
                         </div>
                     </td>
                 </tr>
