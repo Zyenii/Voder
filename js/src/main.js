@@ -2,6 +2,56 @@
  * Created by arjun010 on 10/30/17.
  */
 (function(){
+    var url = "http://127.0.0.1:8000/log?content=";
+    var httpRequest = new XMLHttpRequest();
+    globalThis.isRecordAna = true;
+    globalThis.onload = (event) => {
+        globalThis.addEventListener('click', (event) => {
+            // 获取实际的点击dom对象
+            const targetDom = event.target;
+            if (targetDom && targetDom.dataset.ana) {
+                const text = targetDom.dataset.ana;
+                if (globalThis.isRecordAna && text) {
+                    if (indexDbTools && indexDbTools.db) {
+                        // 记录操作日志
+                        indexDbTools.addItem({
+                            operTime: new Date(),
+                            operText: text
+                        }).then(() => {
+                            console.log('operation locally logged');
+                        });
+                    }
+                    var URL = url+text;
+                    httpRequest.open('POST', URL, true);
+                    httpRequest.send();
+                    httpRequest.onreadystatechange = function () {
+                        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                            var json = httpRequest.responseText;
+                            console.log(json);
+                        }
+                    };
+                }
+            }
+        }, false);
+        // 处理下拉框option更改事件
+        globalThis.addEventListener('change', (event) => {
+            const targetDom = event.target;
+            if (targetDom && targetDom.selectedOptions.length) {
+                const text = targetDom.selectedOptions[0].dataset.ana;
+                if (globalThis.isRecordAna && text) {
+                    if (indexDbTools && indexDbTools.db) {
+                        indexDbTools.addItem({
+                            operTime: new Date(),
+                            operText: text
+                        }).then(() => {
+                            console.log('operation locally logged');
+                        });
+                    }
+
+                }
+            }
+        }, false);
+    };
     main = {};    
 
      var dataFileToUse = "dataFiles/csvs/cars.csv";
@@ -95,12 +145,12 @@
         availableAttributes.sort();
 
         for(let attribute of availableAttributes){
-            $("#xAttrDropdown").append($("<option></option>").val(attribute).html(attribute));
-            $("#yAttrDropdown").append($("<option></option>").val(attribute).html(attribute));
+            $("#xAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
+            $("#yAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
             if(globalVars.metadataMap[attribute]["type"]=="quantitative"){
-                $("#sizeAttrDropdown").append($("<option></option>").val(attribute).html(attribute));
+                $("#sizeAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
             }else{
-                $("#colorAttrDropdown").append($("<option></option>").val(attribute).html(attribute));
+                $("#colorAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
             }
         }
     }

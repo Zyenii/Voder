@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Voder</title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/annotations.css">
     <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -123,7 +123,7 @@
                     </tr>
                     <tr>
                         <td>Mark:</td>
-                        <td><select id="markTypeDropdown" class="specificationDropdown">
+                        <td><select id="markTypeDropdown" data-ana="markTypeDropdown" class="specificationDropdown">
                             <option value=""></option>
                             <option value="arc">Arc</option>
                             <option value="bar">Bar</option>
@@ -133,13 +133,13 @@
                         </select></td>
                     </tr>
                 </table>
-                <button id="showMeButton" class="btn btn-default" style="margin-top: 5%;">Show Possible Visualizations</button>
+                <button id="showMeButton" data-ana="Possible clicked" class="btn btn-default" style="margin-top: 5%;">Show Possible Visualizations</button>
                 <hr>
                 <span style="color: black;">Data fact tier:</span>
                 <select id="dataFactTierSelector">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    <option value="1" data-ana="option1 clicked">1</option>
+                    <option value="2" data-ana="option2 clicked">2</option>
+                    <option value="3" data-ana="option3 clicked">3</option>
                 </select>
             </div>
         </div>
@@ -220,5 +220,6 @@
 <script type="text/javascript" src="js/src/VisAnnotator.js"></script>
 <script type="text/javascript" src="js/src/DashboardGenerator.js"></script>
 <script type="text/javascript" src="js/src/BookmarkRenderer.js"></script>
+<script type="text/javascript" src="js/src/indexDB.js"></script>
 <script type="text/javascript" src="js/src/main.js"></script>
 </html>
