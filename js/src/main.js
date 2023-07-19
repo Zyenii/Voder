@@ -247,6 +247,12 @@
             $(".specificationDropdown").css("background-color","");
         });
         $(".supportedVisThumbnail").click(function(evt){
+            indexDbTools.addItem({
+                operTime: new Date(),
+                operText: this.id
+            }).then(() => {
+                console.log('operation locally logged');
+            });
             let divId = this.id;
             let visIndex = parseInt(divId.split("_")[1]);
             let attributesInSpec = $("#"+divId).attr("associatedAttributes");
