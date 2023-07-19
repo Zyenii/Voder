@@ -145,12 +145,12 @@
         availableAttributes.sort();
 
         for(let attribute of availableAttributes){
-            $("#xAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
-            $("#yAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
+            $("#xAttrDropdown").append($("<option></option>").val(attribute).attr('data-ana','xAttr: '+attribute).html(attribute));
+            $("#yAttrDropdown").append($("<option></option>").val(attribute).attr('data-ana','yAttr: '+attribute).html(attribute));
             if(globalVars.metadataMap[attribute]["type"]=="quantitative"){
-                $("#sizeAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
+                $("#sizeAttrDropdown").append($("<option></option>").val(attribute).attr('data-ana','size: '+attribute).html(attribute));
             }else{
-                $("#colorAttrDropdown").append($("<option></option>").val(attribute).data('ana',attribute).html(attribute));
+                $("#colorAttrDropdown").append($("<option></option>").val(attribute).attr('data-ana','color: '+attribute).html(attribute));
             }
         }
     }
