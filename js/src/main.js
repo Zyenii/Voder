@@ -2,52 +2,48 @@
  * Created by arjun010 on 10/30/17.
  */
 (function(){
-    var url = "http://127.0.0.1:8000/log?content=";
-    var httpRequest = new XMLHttpRequest();
+    function log(text) {
+        var url = "http://127.0.0.1:8000/log?content=";
+        var httpRequest = new XMLHttpRequest();
+        if (indexDbTools && indexDbTools.db) {
+            // Record logging to local indexdb
+            indexDbTools.addItem({
+                operTime: new Date(),
+                operText: text
+            }).then(() => {
+                console.log('operation locally logged');
+            });
+        }
+        // Record to remote db
+        var URL = url+text;
+        httpRequest.open('POST', URL, true);
+        httpRequest.send();
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                var json = httpRequest.responseText;
+                console.log(json);
+            }
+        };
+    }
     globalThis.isRecordAna = true;
     globalThis.onload = (event) => {
         globalThis.addEventListener('click', (event) => {
-            // 获取实际的点击dom对象
+            // Acquire dom click target
             const targetDom = event.target;
             if (targetDom && targetDom.dataset.ana) {
                 const text = targetDom.dataset.ana;
                 if (globalThis.isRecordAna && text) {
-                    if (indexDbTools && indexDbTools.db) {
-                        // 记录操作日志
-                        indexDbTools.addItem({
-                            operTime: new Date(),
-                            operText: text
-                        }).then(() => {
-                            console.log('operation locally logged');
-                        });
-                    }
-                    var URL = url+text;
-                    httpRequest.open('POST', URL, true);
-                    httpRequest.send();
-                    httpRequest.onreadystatechange = function () {
-                        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-                            var json = httpRequest.responseText;
-                            console.log(json);
-                        }
-                    };
+                    log(text);
                 }
             }
         }, false);
-        // 处理下拉框option更改事件
+        // Record option
         globalThis.addEventListener('change', (event) => {
             const targetDom = event.target;
             if (targetDom && targetDom.selectedOptions.length) {
                 const text = targetDom.selectedOptions[0].dataset.ana;
                 if (globalThis.isRecordAna && text) {
-                    if (indexDbTools && indexDbTools.db) {
-                        indexDbTools.addItem({
-                            operTime: new Date(),
-                            operText: text
-                        }).then(() => {
-                            console.log('operation locally logged');
-                        });
-                    }
-
+                    log(text);
                 }
             }
         }, false);
@@ -247,12 +243,7 @@
             $(".specificationDropdown").css("background-color","");
         });
         $(".supportedVisThumbnail").click(function(evt){
-            indexDbTools.addItem({
-                operTime: new Date(),
-                operText: this.id
-            }).then(() => {
-                console.log('operation locally logged');
-            });
+            log(this.id);
             let divId = this.id;
             let visIndex = parseInt(divId.split("_")[1]);
             let attributesInSpec = $("#"+divId).attr("associatedAttributes");
@@ -922,6 +913,7 @@
 
     main.updateUserInterestModel = function(taskCategoryList,attributeList,itemList,categoryList,updateType){
         console.log("updateUserInterestModel")
+        log(updateUserInterestModel);
         if(updateType=="increment"){
             for(var taskCategory of taskCategoryList){
                 globalVars.taskCategoryInterestMap[taskCategory] += 1.0;
@@ -1044,6 +1036,7 @@
     }
 
     $("#manualFactSubmitButton").click(function(evt){
+        log('manualFactInput: '+$("#manualFactInputBox").val());
         let manualFactText = $("#manualFactInputBox").val();
         if(manualFactText!=""){
             let dfObject = {}
@@ -1128,6 +1121,7 @@
 
 
     $("#factQueryBox").on("keyup",function(evt){
+        log('factQuery input: ' + $("#factQueryBox").val());
         let searchString = $("#factQueryBox").val();
         if (evt.keyCode == 13) {
             let dataFacts = utils.searchMatchingDataFacts(searchString);
